@@ -1,51 +1,66 @@
-public class CocktailShakerSort{
+// This class implements the Cocktail Shaker Sort (also known as Bidirectional Bubble Sort).
+// It is an improvement over Bubble Sort that sorts in both directions in each pass.
+public class CocktailShakerSort {
+
+    // The main method serves as the entry point of the Java program.
     public static void main(String[] args) {
-        int numbersToSort[] = {6, 10, 3, 7, 2, 8,4, 9, 1, 5};
+        // Initialize an unsorted array of integers.
+        int numbersToSort[] = {6, 10, 3, 7, 2, 8, 4, 9, 1, 5}; 
+        
+        // Call the Cocktail Shaker Sort method to sort the array.
         sort(numbersToSort);
-        for(int i : numbersToSort){
-            System.out.println(i);
+
+        // Print the sorted array.
+        for (int i : numbersToSort) {
+            System.out.print(i + "");
         }
     }
-    //The Cocktail Shaker Sort algorithm is a variation of the bubble sort algorithm.
-    //It sorts an array of integers in ascending order by repeatedly swapping adjacent elements if they are in the wrong order.
-    //The algorithm gets its name because it "shakes" the elements in the array like a cocktail shaker.
-    // @param numbersToSort, the array of integers to be sorted
-
+     
+    /**
+     * Sorts the input integer array using the Cocktail Shaker Sort algorithm.
+     *
+     * Cocktail Shaker Sort is a variation of Bubble Sort that sorts in both directions.
+     * Instead of just "bubbling up" the largest value, it also "bubbles down" the smallest value,
+     * reducing the number of passes needed compared to standard Bubble Sort.
+     *
+     * @param numbersToSort The integer array to be sorted.
+     */
     public static void sort(int[] numbersToSort) {
-        boolean swapped = true;
-        int start = 0;
-        int end = numbersToSort.length - 1;
-        //The outer loop continues until no more swaps are needed.
+        boolean swapped = true; // Flag to track whether a swap has occurred
+        int start = 0; // Start index of the unsorted section
+        int end = numbersToSort.length - 1; // End index of the unsorted section
+
+        // Continue looping while swaps are happening
         while (swapped) {
-            swapped = false;
-             //The inner loop iterates from the start of the array to the end - 1.
-             //It checks each pair of adjacent elements and swaps them if they are in the wrong order.
+            swapped = false; // Reset swapped flag at the beginning of each pass
+
+            // Forward pass (left to right) - Pushes the largest unsorted element to the end
             for (int i = start; i < end; i++) {
                 if (numbersToSort[i] > numbersToSort[i + 1]) {
-                    // swap numbers
+                    // Swap adjacent elements if they are in the wrong order
                     int temp = numbersToSort[i];
                     numbersToSort[i] = numbersToSort[i + 1];
                     numbersToSort[i + 1] = temp;
-                    swapped = true;
+                    swapped = true; // Mark that a swap occurred
                 }
             }
-            //After the inner loop, the end index is decremented to focus on the next range of elements.
-            end--;
-            //If no swaps were made in the inner loop, the array is already sorted, and the outer loop can be exited.
+            end--; // Reduce the unsorted section from the right side
+
+            // If no swaps happened, the array is already sorted, so exit early
             if (!swapped) break;
-            //The outer loop continues from the end of the array to the start + 1.
-            //It checks each pair of adjacent elements and swaps them if they are in the wrong order.
+
+            // Backward pass (right to left) - Pushes the smallest unsorted element to the start
+            swapped = false; // Reset swapped flag for the backward pass
             for (int i = end - 1; i >= start; i--) {
                 if (numbersToSort[i] > numbersToSort[i + 1]) {
-                    // swap numbers
+                    // Swap adjacent elements if they are in the wrong order
                     int temp = numbersToSort[i];
                     numbersToSort[i] = numbersToSort[i + 1];
                     numbersToSort[i + 1] = temp;
-                    swapped = true;
+                    swapped = true; // Mark that a swap occurred
                 }
             }
-            //After the outer loop, the start index is incremented to focus on the next range of elements.
-            start++;
+            start++; // Increase the sorted section from the left side
         }
     }
 }
